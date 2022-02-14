@@ -71,8 +71,9 @@ int main(void)
 	  int key = 0, keyControl, columnValue;
 	  int lastButtonPressed[2] = {-1, -1};
 	  int mode = 0;
-	  int h = 0;
+	  int h = 1000;
 	  uint16_t raw;
+	  int d = 1;
 	  float pressao;
 
   /* USER CODE END 1 */
@@ -100,6 +101,8 @@ int main(void)
 LCD_Init();
 HAL_Delay(50);
 LCD_Clear();
+char ola[] = "Pressao kPa";
+char und[] = " kPa";
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -113,7 +116,7 @@ LCD_Clear();
 	  // Modo de recebimento de altura
 
 
-	  char ola[] = "Ola mundo";
+	  LCD_GoTo(0,3);
 	  LCD_SendText(ola);
 
 	  for(int i = 0; i < 4; i++){
@@ -155,9 +158,11 @@ LCD_Clear();
 	  HAL_ADC_Start(&hadc1);
 	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 	  raw = HAL_ADC_GetValue(&hadc1);
-	  pressao = ((float)raw/(float)1023+0.095)/0.009;
-
-	  LCD_Clear ();
+	  pressao = ((float)raw/(float)1023+0.095)/0.0325;
+	  LCD_GoTo(2,5);
+	  LCD_Num(pressao);
+	  LCD_SendText(und);
+	  LCD_GoTo(0,0);
   }
   /* USER CODE END 3 */
 }
