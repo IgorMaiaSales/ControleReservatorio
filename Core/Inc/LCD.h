@@ -8,7 +8,7 @@
 #ifndef INC_LCD_H_
 #define INC_LCD_H_
 
-#include "stm32f0xx_hal.h"
+#include "stm32f1xx_hal.h"
 
 #define LCD_RS          GPIO_PIN_14
 #define LCD_RW          GPIO_PIN_13
