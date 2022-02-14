@@ -97,7 +97,9 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-
+LCD_Init();
+HAL_Delay(50);
+LCD_Clear();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -118,7 +120,6 @@ int main(void)
 		  setRow(i);
 
 		  for(int j = 0; j < 4; j++){
-			  HAL_Delay(200);
 			  columnValue = readColumn(j);
 
 			  if(lastButtonPressed[0] == i && lastButtonPressed[1] == j && columnValue == 0){
