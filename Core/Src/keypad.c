@@ -13,9 +13,9 @@ void setRow(int row){
 }
 
 int readColumn(int column){
-	column = 0x1<<column;
+	column = 0x1<<(column + 8);
 
-	return HAL_GPIO_ReadPin(GPIOB, column);
+	return HAL_GPIO_ReadPin(GPIOA, column);
 }
 
 int readKey(int row, int column){
