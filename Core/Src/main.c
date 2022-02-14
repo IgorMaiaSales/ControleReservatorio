@@ -156,6 +156,8 @@ LCD_Clear();
 	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 	  raw = HAL_ADC_GetValue(&hadc1);
 	  pressao = ((float)raw/(float)1023+0.095)/0.009;
+
+	  LCD_Clear ();
   }
   /* USER CODE END 3 */
 }
