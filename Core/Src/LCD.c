@@ -8,6 +8,7 @@
 #include "LCD.h"
 #include "stm32f1xx_hal.h"
 #include "string.h"
+#include <stdio.h>
 
 
 /*
@@ -59,7 +60,7 @@ void LCD_SendCmd(uint8_t cmd)
 	LCD_SendByte(cmd);
 }
 
-/*-
+/*
  * @brief Manda um dado para o LCD
  *
  * @param data: uint32_t.
@@ -73,24 +74,93 @@ void LCD_SendData(uint32_t data)
 
 /*
  * @brief imprime um inteiro até 9999
- *
  * @param x: uint32.
+ * @param line: Linha que o número será inserido
+ * @param column: Coluna que o número mais a esquerda será inserido
+ *
+ * @note: A lógica da inserção está trocada.
+ * 		  Tenha certeza de inserir a linha e coluna que o dígito mais a esquerda irá ficar.
+ * 		  O número é inserido da direita pra esquerda. Diferente do texto
  */
-void LCD_Num(uint32_t x)
+void LCD_Num(uint32_t x, unsigned char line, unsigned char column)
 {
-	LCD_SendData((x/1000) + 0x30);
-	LCD_SendData((x/100)%10 + 0x30);
-	LCD_SendData((x%100)/10 + 0x30);
-	LCD_SendData((x%10) + 0x30);
+	int p = 0;
+	int num = x/1000;
+	if (num!=0 || p==1){
+		if(p==0){
+			p=1;
+			LCD_GoTo(line, column-3);
+		}
+		LCD_SendData(num + 0x30);
+	}
+	num = (x/100)%10;
+	if (num!=0 || p==1){
+		if(p==0){
+			p=1;
+			if(column>2){								// Aqui é inserido um espaço no lugar que ficaria o número.
+				LCD_SendTextPos(" ", line, column-3);		// Isso é feito para garantir que dígitos de números escritos
+			}else {										// anteriormente serão apagados da tela. Sem ter que usar a
+				LCD_GoTo(line, column-2);				// função LCD_Clear(), que limpa a tela toda.
+			}
+		}
+		LCD_SendData(num + 0x30);
+	}
+	num = (x%100)/10;
+	if (num!=0 || p==1){
+		if(p==0){
+			p=1;
+			if(column>2){
+				LCD_SendTextPos("  ", line, column-3);
+			}else if (column>1){
+				LCD_SendTextPos(" ", line, column-2);
+			}else{
+				LCD_GoTo(line, column-1);
+			}
+		}
+		LCD_SendData(num + 0x30);
+	}
+	num = x%10;
+	if(p==0){
+		if(column>2){
+			LCD_SendTextPos("   ", line, column-3);
+		}else if(column>1){
+			LCD_SendTextPos("  ", line, column-2);
+		}
+		else if(column>0){
+			LCD_SendTextPos(" ", line, column-1);
+		}else{
+			LCD_GoTo(line, column);
+		}
+	}
+	LCD_SendData(num + 0x30);
 }
 
 /*
- * @brief imprime um texto no LCD
+ * @brief imprime um texto no LCD na posição atual do cursor
  *
  * @param text: vetor de char
  */
 void LCD_SendText(char text[])
 {
+	for (int i = 0; i < strlen(text); i++){
+		LCD_SendData(text[i]);
+	}
+}
+
+/*
+ * @brief imprime um texto no LCD na posição selecionada
+ *
+ * @param text: vetor de char
+ * @param line: linha que será impressa o texto
+ * @param column: coluna que a letra mais a esquerda será impressa
+ *
+ * @note Essa função escreve o texto da esquerda pra direita, diferente da função LCD_Num.
+ * 		 Tenha certeza de colocar a posição da letra mais a esquerda do texto
+ */
+void LCD_SendTextPos(char text[], unsigned char line, unsigned char column)
+{
+
+	LCD_GoTo(line, column);
 	for (int i = 0; i < strlen(text); i++){
 		LCD_SendData(text[i]);
 	}
@@ -132,7 +202,7 @@ void LCD_GoTo(unsigned char line, unsigned char column)
 /*
  * @brief Inicializa o LCD
  */
-void LCD_Init(void)
+void LCD_Init()
 {
 	LCD_SendCmd(0x38); /* 2 linha, matriz 5x8 							*/
 	LCD_SendCmd(0x08); /* Desliga o  display							*/

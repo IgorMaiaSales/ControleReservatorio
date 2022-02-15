@@ -29,10 +29,11 @@ void LCD_SendByte(unsigned char cmd);
 void LCD_SendCmd (unsigned char cmd);
 void LCD_SendData(uint32_t data);
 void LCD_SendText(char text[]);
+void LCD_SendTextPos(char text[], unsigned char line, unsigned char column);
 void LCD_GoTo (unsigned char line, unsigned char column);
 void LCD_Clear (void);
 void LCD_Init (void);
-void LCD_Num(uint32_t x);
+void LCD_Num(uint32_t x, unsigned char line, unsigned char column);
 
 
 #endif /* INC_LCD_H_ */

@@ -24,7 +24,6 @@
 #include "LCD.h"
 #include "pressao.h"
 #include <stdio.h>
-#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -108,8 +107,7 @@ int main(void)
   HAL_Delay(50);
   LCD_Clear();
   float adc;
-  LCD_GoTo(2,2);
-  LCD_SendText("Ligando");
+  LCD_SendTextPos("Ligando", 2, 2);
   HAL_Delay(500);
   LCD_SendText(".");
   HAL_Delay(500);
@@ -131,8 +129,7 @@ int main(void)
 	  // Modo de recebimento de altura
 
 
-	  LCD_GoTo(0,1);
-	  LCD_SendText("Nivel do Reserv");
+	  LCD_SendTextPos("Reservatorio", 0, 2);
 	  /*
 	  for(int i = 0; i < 4; i++){
 		  setRow(i);
@@ -175,11 +172,11 @@ int main(void)
       pressao = getPressao(adc);
 	  h0 = getAltura(pressao, d);
 	  p = getCapacidade(h, h0);
-	  LCD_GoTo(1,5);
-	  LCD_Num(pressao);
+	  LCD_SendTextPos("Pressao:", 1, 0);
+	  LCD_Num(pressao, 1, 11);
 	  LCD_SendText(" kPa");
-	  LCD_GoTo(2,5);
-	  LCD_Num(p);
+	  LCD_SendTextPos("Nivel:", 2, 0);
+	  LCD_Num(p, 2, 11);
 	  LCD_SendText(" %");
 	  if(p>95){
 		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==1){
@@ -191,8 +188,8 @@ int main(void)
 		  }
 	  }
 	  temperatura = getTemperatura();
-	  LCD_GoTo(3,5);
-	  LCD_Num(temperatura);
+	  LCD_SendTextPos("Temp.:", 3, 0);
+	  LCD_Num(temperatura, 3, 11);
 	  LCD_SendText(" C");
 	  LCD_GoTo(0,0);
   }
