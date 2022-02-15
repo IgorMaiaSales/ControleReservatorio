@@ -8,6 +8,7 @@ C_SRCS += \
 ../Core/Src/LCD.c \
 ../Core/Src/keypad.c \
 ../Core/Src/main.c \
+../Core/Src/pressao.c \
 ../Core/Src/stm32f1xx_hal_msp.c \
 ../Core/Src/stm32f1xx_it.c \
 ../Core/Src/syscalls.c \
@@ -18,6 +19,7 @@ OBJS += \
 ./Core/Src/LCD.o \
 ./Core/Src/keypad.o \
 ./Core/Src/main.o \
+./Core/Src/pressao.o \
 ./Core/Src/stm32f1xx_hal_msp.o \
 ./Core/Src/stm32f1xx_it.o \
 ./Core/Src/syscalls.o \
@@ -28,6 +30,7 @@ C_DEPS += \
 ./Core/Src/LCD.d \
 ./Core/Src/keypad.d \
 ./Core/Src/main.d \
+./Core/Src/pressao.d \
 ./Core/Src/stm32f1xx_hal_msp.d \
 ./Core/Src/stm32f1xx_it.d \
 ./Core/Src/syscalls.d \
@@ -42,7 +45,7 @@ Core/Src/%.o: ../Core/Src/%.c Core/Src/subdir.mk
 clean: clean-Core-2f-Src
 
 clean-Core-2f-Src:
-	-$(RM) ./Core/Src/LCD.d ./Core/Src/LCD.o ./Core/Src/keypad.d ./Core/Src/keypad.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/stm32f1xx_hal_msp.d ./Core/Src/stm32f1xx_hal_msp.o ./Core/Src/stm32f1xx_it.d ./Core/Src/stm32f1xx_it.o ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32f1xx.d ./Core/Src/system_stm32f1xx.o
+	-$(RM) ./Core/Src/LCD.d ./Core/Src/LCD.o ./Core/Src/keypad.d ./Core/Src/keypad.o ./Core/Src/main.d ./Core/Src/main.o ./Core/Src/pressao.d ./Core/Src/pressao.o ./Core/Src/stm32f1xx_hal_msp.d ./Core/Src/stm32f1xx_hal_msp.o ./Core/Src/stm32f1xx_it.d ./Core/Src/stm32f1xx_it.o ./Core/Src/syscalls.d ./Core/Src/syscalls.o ./Core/Src/sysmem.d ./Core/Src/sysmem.o ./Core/Src/system_stm32f1xx.d ./Core/Src/system_stm32f1xx.o
 
 .PHONY: clean-Core-2f-Src
 

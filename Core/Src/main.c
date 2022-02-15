@@ -21,8 +21,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "keypad.h"
 #include "LCD.h"
+#include "pressao.h"
+#include <stdio.h>
+#include <math.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,7 +45,8 @@
 ADC_HandleTypeDef hadc1;
 
 /* USER CODE BEGIN PV */
-
+void ADC_Select_CH1(void);
+void ADC_Select_CH2(void);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -56,6 +59,7 @@ static void MX_ADC1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+	uint16_t adcval;
 //extern void setRow(int);
 //extern int readColumn(int);
 //extern int readKey(int, int);
@@ -68,16 +72,16 @@ static void MX_ADC1_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	  int key = 0, keyControl, columnValue;
-	  int lastButtonPressed[2] = {-1, -1};
-	  int mode = 0;
+	  //int key = 0, keyControl, columnValue;
+	  //int lastButtonPressed[2] = {-1, -1};
+	  //int mode = 0;
 	  float h = 2;
-	  uint16_t raw;
+	  float raw;
 	  int d = 1000;
 	  float pressao;
+	  float temperatura;
 	  float h0;
-	  int p;
-
+	  float p;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -100,12 +104,17 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-LCD_Init();
-HAL_Delay(50);
-LCD_Clear();
-char ola[] = "Altura";
-char und[] = " %";
-HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+  float t=0;
+  float aux;
+  LCD_Init();
+  HAL_Delay(50);
+  LCD_Clear();
+  char ola[] = "Nivel do Reserv";
+  char und[] = " kPa";
+  char und1[] = " C";
+  char und2[] = " %";
+/*  float voltagem;
+  unsigned char saida;*/
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -119,9 +128,9 @@ HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
 	  // Modo de recebimento de altura
 
 
-	  LCD_GoTo(0,5);
+	  LCD_GoTo(0,1);
 	  LCD_SendText(ola);
-
+	  /*
 	  for(int i = 0; i < 4; i++){
 		  setRow(i);
 
@@ -158,24 +167,41 @@ HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
 	  if(mode == 1 && key >= 0 && keyControl == 0){
 		  h = 10*h + key;
 	  }
+	  */
+	  ADC_Select_CH1();
 	  HAL_ADC_Start(&hadc1);
 	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 	  raw = HAL_ADC_GetValue(&hadc1);
-	  pressao = ((float)raw/(float)1023+0.095)/0.0254;
-	  h0 = pressao/(d*9.81);
-	  p = (h0/h)*100000;
+	  HAL_ADC_Stop(&hadc1);
+      pressao = getPressao(raw);
+	  h0 = getAltura(pressao, d);
+	  p = getCapacidade(h, h0);
+	  LCD_GoTo(1,5);
+	  LCD_Num(pressao);
+	  LCD_SendText(und);
 	  LCD_GoTo(2,5);
 	  LCD_Num(p);
-	  LCD_SendText(und);
-	  if(p<=95){
-		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2)==1){
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_RESET);
+	  LCD_SendText(und2);
+	  if(p>95){
+		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==0){
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
 		  }
 	  }else{
-		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_2)==0){
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2, GPIO_PIN_SET);
+		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==1){
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
 		  }
 	  }
+	  ADC_Select_CH2();
+	  HAL_ADC_Start(&hadc1);
+	  if((HAL_ADC_PollForConversion(&hadc1, 1000000)) == HAL_OK){
+		  adcval = HAL_ADC_GetValue(&hadc1);
+		  t = ((adcval)*3.3);
+		  aux = (int)t/26.8;
+	  }
+	  HAL_ADC_Stop(&hadc1);
+	  LCD_GoTo(3,5);
+	  LCD_Num(aux);
+	  LCD_SendText(und1);
 	  LCD_GoTo(0,0);
   }
   /* USER CODE END 3 */
@@ -243,8 +269,8 @@ static void MX_ADC1_Init(void)
   /** Common config
   */
   hadc1.Instance = ADC1;
-  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
-  hadc1.Init.ContinuousConvMode = DISABLE;
+  hadc1.Init.ScanConvMode = ADC_SCAN_ENABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
   hadc1.Init.DiscontinuousConvMode = DISABLE;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
@@ -255,13 +281,21 @@ static void MX_ADC1_Init(void)
   }
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_1;
+  /*sConfig.Channel = ADC_CHANNEL_1;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
   if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
   {
     Error_Handler();
-  }
+  }*/
+  /** Configure Regular Channel
+  */
+  /*sConfig.Channel = ADC_CHANNEL_2;
+  sConfig.Rank = ADC_REGULAR_RANK_2;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }*/
   /* USER CODE BEGIN ADC1_Init 2 */
 
   /* USER CODE END ADC1_Init 2 */
@@ -282,44 +316,55 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_2|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
-                          |GPIO_PIN_15, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_0, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13
-                          |GPIO_PIN_14|GPIO_PIN_15|GPIO_PIN_4|GPIO_PIN_5
-                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
+                          |GPIO_PIN_14|GPIO_PIN_15|GPIO_PIN_5|GPIO_PIN_6
+                          |GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PA2 PA12 PA13 PA14
-                           PA15 */
-  GPIO_InitStruct.Pin = GPIO_PIN_2|GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14
-                          |GPIO_PIN_15;
+  /*Configure GPIO pin : PA0 */
+  GPIO_InitStruct.Pin = GPIO_PIN_0;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /*Configure GPIO pins : PB10 PB11 PB12 PB13
-                           PB14 PB15 PB4 PB5
-                           PB6 PB7 PB8 PB9 */
+                           PB14 PB15 PB5 PB6
+                           PB7 PB8 PB9 */
   GPIO_InitStruct.Pin = GPIO_PIN_10|GPIO_PIN_11|GPIO_PIN_12|GPIO_PIN_13
-                          |GPIO_PIN_14|GPIO_PIN_15|GPIO_PIN_4|GPIO_PIN_5
-                          |GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
+                          |GPIO_PIN_14|GPIO_PIN_15|GPIO_PIN_5|GPIO_PIN_6
+                          |GPIO_PIN_7|GPIO_PIN_8|GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PA8 PA9 PA10 PA11 */
-  GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_10|GPIO_PIN_11;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_PULLDOWN;
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-
 }
 
 /* USER CODE BEGIN 4 */
+void ADC_Select_CH1(void){
+	ADC_ChannelConfTypeDef sConfig = {0};
+	sConfig.Channel = ADC_CHANNEL_1;
+	sConfig.Rank = ADC_REGULAR_RANK_1;
+	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+	{
+	  Error_Handler();
+	}
+}
 
+void ADC_Select_CH2(void){
+	ADC_ChannelConfTypeDef sConfig = {0};
+	sConfig.Channel = ADC_CHANNEL_2;
+	sConfig.Rank = ADC_REGULAR_RANK_1;
+	sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+	if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+	{
+	  Error_Handler();
+	}
+}
 /* USER CODE END 4 */
 
 /**
