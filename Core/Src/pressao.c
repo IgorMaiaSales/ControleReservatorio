@@ -6,6 +6,7 @@
  */
 
 #include "pressao.h"
+#include "math.h"
 
 /*
  * @brief corrige o valor da pressão medida pelo adc
@@ -57,4 +58,16 @@ float getAltura(float pressao, float densidade){
 
 float getCapacidade(float altura, float nivel){
 	return ((nivel/altura)*100);
+}
+
+/*
+ * @brief Calcula a densidade da água de acordo com a temperatura
+ *
+ * @param temperatura: temperatura em graus celcius
+ * @retval densidade da agua em kg/m3
+ */
+
+float getDensidade(float temperatura){
+	float d = 9.9998296349897953e-001+1.0044593739780175e-005*temperatura-5.0243729029104561e-006*temperatura*temperatura;
+	return d*1000;
 }
