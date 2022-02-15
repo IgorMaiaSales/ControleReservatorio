@@ -1,4 +1,4 @@
-pressao.c:10:7:corrigePressao	24	static
-pressao.c:16:7:getPressao	8	static
-pressao.c:28:7:getAltura	16	static
-pressao.c:33:7:getCapacidade	8	static
+pressao.c:16:7:corrigePressao	24	static
+pressao.c:27:7:getPressao	8	static
+pressao.c:46:7:getAltura	16	static
+pressao.c:58:7:getCapacidade	8	static

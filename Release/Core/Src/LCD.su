@@ -1,8 +1,8 @@
 LCD.c:19:6:LCD_SendByte	8	static
-LCD.c:56:6:LCD_SendCmd	8	static
-LCD.c:69:6:LCD_SendData	8	static
-LCD.c:82:6:LCD_Num	24	static
-LCD.c:96:6:LCD_SendText	16	static
-LCD.c:109:6:LCD_Clear	0	static
-LCD.c:120:6:LCD_GoTo	0	static
-LCD.c:146:6:LCD_Init	8	static
+LCD.c:55:6:LCD_SendCmd	8	static
+LCD.c:67:6:LCD_SendData	8	static
+LCD.c:79:6:LCD_Num	24	static
+LCD.c:92:6:LCD_SendText	16	static
+LCD.c:102:6:LCD_Clear	0	static
+LCD.c:112:6:LCD_GoTo	0	static
+LCD.c:135:6:LCD_Init	8	static

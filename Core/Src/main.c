@@ -47,6 +47,8 @@ ADC_HandleTypeDef hadc1;
 /* USER CODE BEGIN PV */
 void ADC_Select_CH1(void);
 void ADC_Select_CH2(void);
+float getTemperatura();
+float getADC1_IN1();
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -59,7 +61,6 @@ static void MX_ADC1_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-	uint16_t adcval;
 //extern void setRow(int);
 //extern int readColumn(int);
 //extern int readKey(int, int);
@@ -76,7 +77,6 @@ int main(void)
 	  //int lastButtonPressed[2] = {-1, -1};
 	  //int mode = 0;
 	  float h = 2;
-	  float raw;
 	  int d = 1000;
 	  float pressao;
 	  float temperatura;
@@ -104,17 +104,20 @@ int main(void)
   MX_GPIO_Init();
   MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
-  float t=0;
-  float aux;
   LCD_Init();
   HAL_Delay(50);
   LCD_Clear();
-  char ola[] = "Nivel do Reserv";
-  char und[] = " kPa";
-  char und1[] = " C";
-  char und2[] = " %";
-/*  float voltagem;
-  unsigned char saida;*/
+  float adc;
+  LCD_GoTo(2,2);
+  LCD_SendText("Ligando");
+  HAL_Delay(500);
+  LCD_SendText(".");
+  HAL_Delay(500);
+  LCD_SendText(".");
+  HAL_Delay(500);
+  LCD_SendText(".");
+  HAL_Delay(500);
+  LCD_Clear();
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -129,7 +132,7 @@ int main(void)
 
 
 	  LCD_GoTo(0,1);
-	  LCD_SendText(ola);
+	  LCD_SendText("Nivel do Reserv");
 	  /*
 	  for(int i = 0; i < 4; i++){
 		  setRow(i);
@@ -168,40 +171,29 @@ int main(void)
 		  h = 10*h + key;
 	  }
 	  */
-	  ADC_Select_CH1();
-	  HAL_ADC_Start(&hadc1);
-	  HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-	  raw = HAL_ADC_GetValue(&hadc1);
-	  HAL_ADC_Stop(&hadc1);
-      pressao = getPressao(raw);
+	  adc = getADC1_IN1();
+      pressao = getPressao(adc);
 	  h0 = getAltura(pressao, d);
 	  p = getCapacidade(h, h0);
 	  LCD_GoTo(1,5);
 	  LCD_Num(pressao);
-	  LCD_SendText(und);
+	  LCD_SendText(" kPa");
 	  LCD_GoTo(2,5);
 	  LCD_Num(p);
-	  LCD_SendText(und2);
+	  LCD_SendText(" %");
 	  if(p>95){
-		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==0){
-			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
-		  }
-	  }else{
 		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==1){
 			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
 		  }
+	  }else{
+		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==0){
+			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+		  }
 	  }
-	  ADC_Select_CH2();
-	  HAL_ADC_Start(&hadc1);
-	  if((HAL_ADC_PollForConversion(&hadc1, 1000000)) == HAL_OK){
-		  adcval = HAL_ADC_GetValue(&hadc1);
-		  t = ((adcval)*3.3);
-		  aux = (int)t/26.8;
-	  }
-	  HAL_ADC_Stop(&hadc1);
+	  temperatura = getTemperatura();
 	  LCD_GoTo(3,5);
-	  LCD_Num(aux);
-	  LCD_SendText(und1);
+	  LCD_Num(temperatura);
+	  LCD_SendText(" C");
 	  LCD_GoTo(0,0);
   }
   /* USER CODE END 3 */
@@ -261,7 +253,6 @@ static void MX_ADC1_Init(void)
 
   /* USER CODE END ADC1_Init 0 */
 
-  ADC_ChannelConfTypeDef sConfig = {0};
 
   /* USER CODE BEGIN ADC1_Init 1 */
 
@@ -364,6 +355,42 @@ void ADC_Select_CH2(void){
 	{
 	  Error_Handler();
 	}
+}
+
+/*
+ * @author Juan Porto
+ * @brief Calcula a temperatura de acordo com o valor lido pelo ADC
+ * @retval temperatura em graus celsius
+ */
+
+float getTemperatura(){
+	float temp;
+	uint16_t adcval;
+	int t;
+	ADC_Select_CH2();
+	HAL_ADC_Start(&hadc1);
+	if((HAL_ADC_PollForConversion(&hadc1, 1000000)) == HAL_OK){
+	adcval = HAL_ADC_GetValue(&hadc1);
+	t = ((adcval)*3.3);
+	temp = (int)t/26.8;
+	}
+	HAL_ADC_Stop(&hadc1);
+	return temp;
+}
+
+/*
+ * @brief Pega o valor lido pelo ADC1 IN1
+ * @retval valor do ADC1 IN1
+ */
+
+float getADC1_IN1(){
+	float x;
+	ADC_Select_CH1();
+	HAL_ADC_Start(&hadc1);
+	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+	x = HAL_ADC_GetValue(&hadc1);
+	HAL_ADC_Stop(&hadc1);
+	return x;
 }
 /* USER CODE END 4 */
 

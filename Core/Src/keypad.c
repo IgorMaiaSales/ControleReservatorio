@@ -2,7 +2,7 @@
  * keypad.c
  *
  *  Created on: Feb 13, 2022
- *      Author: IgorMaia
+ *      @author IgorMaia
  */
 
 #include "main.h"

@@ -2,7 +2,7 @@
  * lcd.c
  *
  *  	Created on: 13 de fev de 2022
- *      Author: Rodrigo Hiury
+ *      @author Rodrigo Hiury
  */
 
 #include "LCD.h"
@@ -10,12 +10,12 @@
 #include "string.h"
 
 
-/*----------------------------------------------------------
- * LCD_SendByte: sending byte to LCD.
+/*
+ * @brief Manda um byte para o LCD
  *
- * Parameters:	uint8_t.
- * Return:	none.
- *---------------------------------------------------------*/
+ * @param cmd: Byte a ser enviado.
+ *
+ */
 void LCD_SendByte(uint8_t cmd)
 {
 
@@ -44,15 +44,14 @@ void LCD_SendByte(uint8_t cmd)
 	HAL_Delay(1);
 	HAL_GPIO_WritePin(LCD_PORT, LCD_D_ALL, GPIO_PIN_RESET);
 	HAL_GPIO_WritePin(LCD_PORT, LCD_RS, GPIO_PIN_RESET);
-	HAL_Delay(5); //While Busy Flag is 1
+	HAL_Delay(5); //Enquanto a Busy Flag está setada
 }
 
-/*----------------------------------------------------------
- * LCD_SendCmd: sending command to LCD.
+/*
+ * @brief Manda um comando pro LCD
  *
- * Parameters:	uint8_t.
- * Return:	none.
- *---------------------------------------------------------*/
+ * @param cmd: uint8_t
+ */
 void LCD_SendCmd(uint8_t cmd)
 {
 	HAL_GPIO_WritePin(LCD_PORT, LCD_RS, GPIO_PIN_RESET);
@@ -60,12 +59,11 @@ void LCD_SendCmd(uint8_t cmd)
 	LCD_SendByte(cmd);
 }
 
-/*----------------------------------------------------------
- * LCD_SendData: sending data to LCD.
+/*-
+ * @brief Manda um dado para o LCD
  *
- * Parameters:	uint32.
- * Return:	none.
- *---------------------------------------------------------*/
+ * @param data: uint32_t.
+ */
 void LCD_SendData(uint32_t data)
 {
 	HAL_GPIO_WritePin(LCD_PORT, LCD_RS, GPIO_PIN_SET);
@@ -73,12 +71,11 @@ void LCD_SendData(uint32_t data)
 	LCD_SendByte(data);
 }
 
-/*----------------------------------------------------------
- * LCD_Num: print a number up to 9999.
+/*
+ * @brief imprime um inteiro até 9999
  *
- * Parameters:	uint32.
- * Return:	none.
- *---------------------------------------------------------*/
+ * @param x: uint32.
+ */
 void LCD_Num(uint32_t x)
 {
 	LCD_SendData((x/1000) + 0x30);
@@ -87,12 +84,11 @@ void LCD_Num(uint32_t x)
 	LCD_SendData((x%10) + 0x30);
 }
 
-/*----------------------------------------------------------
- * LCD_SendText: print a string on LCD.
+/*
+ * @brief imprime um texto no LCD
  *
- * Parameters:	char.
- * Return:	none.
- *---------------------------------------------------------*/
+ * @param text: vetor de char
+ */
 void LCD_SendText(char text[])
 {
 	for (int i = 0; i < strlen(text); i++){
@@ -100,23 +96,19 @@ void LCD_SendText(char text[])
 	}
 }
 
-/*----------------------------------------------------------
- * LCD_Clear: clear the LCD.
- *
- * Parameters:	none.
- * Return:	none.
- *---------------------------------------------------------*/
+/*
+ * @brief Limpa o LCD e manda o cursor para a posição (0,0)
+ */
 void LCD_Clear(void)
 {
 	LCD_SendCmd(0x01);
 }
 
-/*----------------------------------------------------------
- * LCD_GoTo: set cursor position on LCD.
+/*
+ * @brief seta a posição do curso do LCD
  *
- * Parameters:	column and line.
- * Return:	none.
- *---------------------------------------------------------*/
+ * @param linha e coluna
+ */
 void LCD_GoTo(unsigned char line, unsigned char column)
 {
 	uint8_t position = 0;
@@ -137,20 +129,17 @@ void LCD_GoTo(unsigned char line, unsigned char column)
 	LCD_SendCmd(0x80 | (position + column));
 }
 
-/*----------------------------------------------------------
- * LCD_Init: initialize the LCD.
- *
- * Parameters:	none.
- * Return:	none.
- *---------------------------------------------------------*/
+/*
+ * @brief Inicializa o LCD
+ */
 void LCD_Init(void)
 {
-	LCD_SendCmd(0x38); /* 2 lines, 5x8 character matrix      	*/
-	LCD_SendCmd(0x08); /* Turn off display				*/
-	LCD_SendCmd(0x0C); /* Display ctrl:Disp=ON,Curs/Blnk=OFF 	*/
-	LCD_SendCmd(0x06); /* Entry mode: Move right, no shift   	*/
-	LCD_SendCmd(0x01); /* Clean display with home cursor 		*/
-	LCD_SendCmd(0x02); /* Force Cursor to the beginning */
+	LCD_SendCmd(0x38); /* 2 linha, matriz 5x8 							*/
+	LCD_SendCmd(0x08); /* Desliga o  display							*/
+	LCD_SendCmd(0x0C); /* Display ctrl:Disp=ON,Curs/Blnk=OFF 			*/
+	LCD_SendCmd(0x06); /* Entry mode: Move right, no shift   			*/
+	LCD_SendCmd(0x01); /* Limpa o Display e manda o cursor para 0 	 	*/
+	LCD_SendCmd(0x02); /* Força o cursor para o começo					 */
 
 	HAL_Delay(1);
 }

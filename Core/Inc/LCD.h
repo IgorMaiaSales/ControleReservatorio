@@ -2,7 +2,7 @@
  * LCD.h
  *
  *  	Created on: 13 de fev de 2022
- *  	Author: Rodrigo Hiury
+ *  	@author Rodrigo Hiury
  */
 
 #ifndef INC_LCD_H_
