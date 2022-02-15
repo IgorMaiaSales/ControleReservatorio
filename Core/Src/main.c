@@ -81,6 +81,7 @@ int main(void)
 	  float temperatura;
 	  float h0;
 	  float p;
+	  int l = 0;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -107,15 +108,7 @@ int main(void)
   HAL_Delay(50);
   LCD_Clear();
   float adc;
-  LCD_SendTextPos("Ligando", 2, 2);
-  HAL_Delay(500);
-  LCD_SendText(".");
-  HAL_Delay(500);
-  LCD_SendText(".");
-  HAL_Delay(500);
-  LCD_SendText(".");
-  HAL_Delay(500);
-  LCD_Clear();
+  LCD_SendTextPos("Reservatorio", 0, 2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -129,7 +122,6 @@ int main(void)
 	  // Modo de recebimento de altura
 
 
-	  LCD_SendTextPos("Reservatorio", 0, 2);
 	  /*
 	  for(int i = 0; i < 4; i++){
 		  setRow(i);
@@ -172,26 +164,38 @@ int main(void)
       pressao = getPressao(adc);
 	  h0 = getAltura(pressao, d);
 	  p = getCapacidade(h, h0);
-	  LCD_SendTextPos("Pressao:", 1, 0);
-	  LCD_Num(pressao, 1, 11);
+	  LCD_SendTextPos("Pres.:", 1, 0);
+	  LCD_NumFloat(pressao, 1, 7);
 	  LCD_SendText(" kPa");
 	  LCD_SendTextPos("Nivel:", 2, 0);
-	  LCD_Num(p, 2, 11);
+	  LCD_NumFloat(p, 2, 7);
 	  LCD_SendText(" %");
 	  if(p>95){
 		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==1){
 			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+			  LCD_SendTextPos("Desligando Bomba", 0, 0);
+			  HAL_Delay(200);
+			  LCD_SendTextPos("  Reservatorio  ", 0, 0);
 		  }
 	  }else{
 		  if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0)==0){
 			  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_0);
+			  l = 1;
 		  }
 	  }
 	  temperatura = getTemperatura();
 	  LCD_SendTextPos("Temp.:", 3, 0);
-	  LCD_Num(temperatura, 3, 11);
+	  LCD_NumFloat(temperatura, 3, 7);
 	  LCD_SendText(" C");
 	  LCD_GoTo(0,0);
+	  if(l==1){
+		  LCD_SendTextPos("Nivel baixo!", 0, 2);
+		  HAL_Delay(200);
+		  LCD_SendTextPos("Ligando Bomba!", 0, 1);
+		  HAL_Delay(200);
+		  LCD_SendTextPos(" Reservatorio ", 0, 1);
+		  l = 0;
+	  }
   }
   /* USER CODE END 3 */
 }

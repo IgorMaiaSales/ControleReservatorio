@@ -33,7 +33,8 @@ void LCD_SendTextPos(char text[], unsigned char line, unsigned char column);
 void LCD_GoTo (unsigned char line, unsigned char column);
 void LCD_Clear (void);
 void LCD_Init (void);
-void LCD_Num(uint32_t x, unsigned char line, unsigned char column);
+void LCD_NumInt(int x, unsigned char line, unsigned char column);
+void LCD_NumFloat(float x, unsigned char line, unsigned char column);
 
 
 #endif /* INC_LCD_H_ */
