@@ -24,7 +24,6 @@
 #define LCD_PORT        GPIOB
 #define LCD_D_ALL	    (GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7 | GPIO_PIN_8| GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12)
 
-unsigned char LCD_ReadByte(void);
 void LCD_SendByte(unsigned char cmd);
 void LCD_SendCmd (unsigned char cmd);
 void LCD_SendData(uint32_t data);
