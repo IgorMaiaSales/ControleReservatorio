@@ -1,3 +1,1 @@
-keypad.c:11:6:setRow	0	static
-keypad.c:15:5:readColumn	8	static
-keypad.c:21:5:readKey	88	static
+keypad.c:14:7:readKeypad	88	static

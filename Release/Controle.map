@@ -203,11 +203,15 @@ Discarded input sections
  .text          0x0000000000000000        0x0 ./Core/Src/keypad.o
  .data          0x0000000000000000        0x0 ./Core/Src/keypad.o
  .bss           0x0000000000000000        0x0 ./Core/Src/keypad.o
- .text.setRow   0x0000000000000000       0x14 ./Core/Src/keypad.o
- .text.readColumn
-                0x0000000000000000       0x18 ./Core/Src/keypad.o
- .text.readKey  0x0000000000000000       0x38 ./Core/Src/keypad.o
+ .rodata.str1.1
+                0x0000000000000000       0x20 ./Core/Src/keypad.o
+ .rodata.readKeypad.str1.1
+                0x0000000000000000        0x2 ./Core/Src/keypad.o
+ .text.readKeypad
+                0x0000000000000000       0x90 ./Core/Src/keypad.o
  .rodata        0x0000000000000000       0x40 ./Core/Src/keypad.o
+ .data.column   0x0000000000000000        0x8 ./Core/Src/keypad.o
+ .data.row      0x0000000000000000        0x8 ./Core/Src/keypad.o
  .comment       0x0000000000000000       0x54 ./Core/Src/keypad.o
  .ARM.attributes
                 0x0000000000000000       0x2d ./Core/Src/keypad.o
