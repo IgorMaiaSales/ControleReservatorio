@@ -20,16 +20,38 @@ Para as peças utilizadas no sistema, além do microcontrolador escolhido, foram
 > - [Visor LCD LM041L 16x4](https://datasheetspdf.com/pdf-file/573111/HitachiSemiconductor/LM041L/1)
 > - Teclado Matricial 4x4
 
+O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada peça descrita acima foi feita individualmente. Após a implementação feita, juntamos cada parte e montamos conjuntamente o sistema.
 
+## Implementação
 
-[incluir texto sobre sensor de pressão]
+### Sensor de Pressão
 
-[incluir texto sobre o sensor de temperatura]
+- Ludwig Bezerra Sales
 
-O Visor escolhido foi um visor LCD de 16 colunas por 4 linhas. Esse visor foi escolhido por conta do maior espaço disponível para informações ao usuário.
-Para usá-lo no sistema, foi nescessário a construção de funções para enviar comandos ao visor e mostrar as informações nescessárias.
-Para usar o visor, é nescessário primeiro, iniciá-lo. A inicialização do visor consiste em configurar o modo com que as informações serão enviadas e escritas no visor.
-Primeiro configuramos o tamanho da letra no visor, depois configuramos o cursor, depois o modo de escrita da tela, depois limpamos a tela e setamos o cursor pra posição (0,0).
-No nosso caso, foi usado a configuração de 2 linhas, matriz 5x8. O cursor foi desligado e o modo de escrita foi usado da esquerda pra direita, sem deslocamento.
-Após a inicialização, podemos usar o visor normalmente.
-Para escrever no visor, temos que primeiro setar a posição do cursos, isto é, a posição que a letra ou o número mais a esquerda será escrito, e então enviar o dado a ser escrito.
+> *"Bom, fiquei responsável pela ligação e funcionamento do sensor de pressão utilizado, que foi o MPX4115, li o datasheet, vi como ligar os pinos e o fiz, porém, ao utilizar a > fórmula de saída do valor da pressão que o datasheet disponibiliza, apresentou uma divergência enorme em relação ao valor do visor do sensor, daí tiramos um tempo e o Rodrigo > veio com a solução, ele havia utilizado um site para elaborar um polinômio que corrigisse o valor da pressão apresentada.
+> Após a correção da pressão, nos vimos diante de outro problema, a utilização do controlador ADC1 com dois sensores analógicos, Rodrigo novamente veio com a solução, ele havia > pesquisado e encontrado uma forma de utilizar os dois sensores no mesmo controlador, diferenciando canais e possibilitando a leitura de ambos (temperatura e pressão).
+> Dito isso, as linhas de código utilizadas para o correto funcionamento do sensor são basicamente: definir duas variáveis (o valor lido pelo controlador ADC e a pressão, depois > da conversão), inicialização do controlador ADC, dar um delay para a leitura do valor, obter o valor “cru” (por isso o nome da variável: raw), o converter e por fim imprimir no visor."*
+
+### Sensor de Temperatura
+
+- Juan Porto
+
+> *"[incluir texto sobre o sensor de temperatura]"*
+
+### Visor LCD
+
+- Rodrigo Hiury
+
+> *"O Visor escolhi foi um visor LCD de 16 colunas por 4 linhas. Escolhi esse visor por conta do maior espaço disponível para informações ao usuário.
+> Para usá-lo no sistema, foi nescessário a construção de funções para enviar comandos ao visor e mostrar as informações nescessárias.
+> Para usar o visor, é nescessário primeiro, iniciá-lo. A inicialização do visor consiste em configurar o modo com que as informações serão enviadas e escritas no visor.
+> Primeiro configuramos o tamanho da letra no visor, depois configuramos o cursor, depois o modo de escrita da tela, depois limpamos a tela e setamos o cursor pra posição (0,0).
+> No nosso caso, foi usado a configuração de 2 linhas, matriz 5x8. O cursor foi desligado e o modo de escrita foi usado da esquerda pra direita, sem deslocamento.
+> Após a inicialização, pude usar o visor normalmente.
+> Para escrever no visor, temos que primeiro setar a posição do cursos, isto é, a posição que a letra ou o número mais a esquerda será escrito, e então enviar o dado a ser escrito."*
+
+### Teclado Matricial
+
+- Igor Maia Sales
+
+> *"[Inserir texto sobre o teclado matricial]"*
