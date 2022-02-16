@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 keypad.c:14:7:readKeypad	88	static
+=======
+keypad.c:13:7:readKeypad	88	static
+>>>>>>> 26a3bbbf2e7928c85f0b49d1555b528aa7d76ef7

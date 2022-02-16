@@ -1,4 +1,4 @@
-Core/Src/keypad.o: ../Core/Src/keypad.c ../Core/Inc/main.h \
+Core/Src/keypad.o: ../Core/Src/keypad.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -24,8 +24,11 @@ Core/Src/keypad.o: ../Core/Src/keypad.c ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Core/Inc/keypad.h
+<<<<<<< HEAD
 
 ../Core/Inc/main.h:
+=======
+>>>>>>> 26a3bbbf2e7928c85f0b49d1555b528aa7d76ef7
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h:
 

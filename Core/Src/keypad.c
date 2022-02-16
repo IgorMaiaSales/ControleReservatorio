@@ -1,10 +1,13 @@
 /*
  * keypad.c
  *
- *  Created on: Feb 13, 2022
- *      @author IgorMaia
+ *  Created on: Feb 16, 2022
+ *      Author: IgorMaia
  */
+<<<<<<< HEAD
 #include "main.h"
+=======
+>>>>>>> 26a3bbbf2e7928c85f0b49d1555b528aa7d76ef7
 #include "stm32f1xx_hal.h"
 #include "keypad.h"
 
@@ -13,9 +16,15 @@ uint16_t column[4] = {COLUMN1, COLUMN2, COLUMN3, COLUMN4};
 
 char* readKeypad(void){
 	char *key[4][4] = {
+<<<<<<< HEAD
 			{"7", "8", "9", "A"},
 			{"4", "5", "6", "B"},
 			{"1", "2", "3", "C"},
+=======
+			{"1", "2", "3", "A"},
+			{"4", "5", "6", "B"},
+			{"7", "8", "9", "C"},
+>>>>>>> 26a3bbbf2e7928c85f0b49d1555b528aa7d76ef7
 			{"*", "0", "#", "D"}
 	};
 
@@ -39,3 +48,4 @@ char* readKeypad(void){
 
 	return "Z";
 }
+
