@@ -20,9 +20,16 @@ Para as peças utilizadas no sistema, além do microcontrolador escolhido, foram
 > - [Visor LCD LM041L 16x4](https://datasheetspdf.com/pdf-file/573111/HitachiSemiconductor/LM041L/1)
 > - Teclado Matricial 4x4
 
+
+
 [incluir texto sobre sensor de pressão]
 
 [incluir texto sobre o sensor de temperatura]
 
 O Visor escolhido foi um visor LCD de 16 colunas por 4 linhas. Esse visor foi escolhido por conta do maior espaço disponível para informações ao usuário.
 Para usá-lo no sistema, foi nescessário a construção de funções para enviar comandos ao visor e mostrar as informações nescessárias.
+Para usar o visor, é nescessário primeiro, iniciá-lo. A inicialização do visor consiste em configurar o modo com que as informações serão enviadas e escritas no visor.
+Primeiro configuramos o tamanho da letra no visor, depois configuramos o cursor, depois o modo de escrita da tela, depois limpamos a tela e setamos o cursor pra posição (0,0).
+No nosso caso, foi usado a configuração de 2 linhas, matriz 5x8. O cursor foi desligado e o modo de escrita foi usado da esquerda pra direita, sem deslocamento.
+Após a inicialização, podemos usar o visor normalmente.
+Para escrever no visor, temos que primeiro setar a posição do cursos, isto é, a posição que a letra ou o número mais a esquerda será escrito, e então enviar o dado a ser escrito.
