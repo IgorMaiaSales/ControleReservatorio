@@ -1,7 +1,7 @@
-main.c:204:6:SystemClock_Config	96	static,ignoring_inline_asm
-main.c:336:6:ADC_Select_CH1	24	static,ignoring_inline_asm
-main.c:347:6:ADC_Select_CH2	24	static,ignoring_inline_asm
-main.c:364:7:getTemperatura	8	static
-main.c:384:7:getADC1_IN1	16	static
-main.c:72:5:main	48	static,ignoring_inline_asm
-main.c:399:6:Error_Handler	0	static,ignoring_inline_asm
+main.c:165:6:SystemClock_Config	96	static,ignoring_inline_asm
+main.c:307:6:ADC_Select_CH1	24	static,ignoring_inline_asm
+main.c:318:6:ADC_Select_CH2	24	static,ignoring_inline_asm
+main.c:335:7:getTemperatura	8	static
+main.c:355:7:getADC1_IN1	16	static
+main.c:73:5:main	48	static,ignoring_inline_asm
+main.c:370:6:Error_Handler	0	static,ignoring_inline_asm

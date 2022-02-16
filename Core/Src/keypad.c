@@ -1,30 +1,41 @@
 /*
  * keypad.c
  *
- *  Created on: Feb 13, 2022
- *      @author IgorMaia
+ *  Created on: Feb 16, 2022
+ *      Author: IgorMaia
  */
-
-#include "main.h"
 #include "stm32f1xx_hal.h"
+#include "keypad.h"
 
-void setRow(int row){
-	GPIOA->ODR = 0x1<<(12 + row);
-}
+uint16_t row[4] = {ROW1, ROW2, ROW3, ROW4};
+uint16_t column[4] = {COLUMN1, COLUMN2, COLUMN3, COLUMN4};
 
-int readColumn(int column){
-	column = 0x1<<(column + 8);
-
-	return HAL_GPIO_ReadPin(GPIOA, column);
-}
-
-int readKey(int row, int column){
-	int keyMatrix[4][4] = {
-			{7, 8, 9, -3},
-			{4, 5, 6, -4},
-			{1, 2, 3, -5},
-			{-1, 0, -2, -6}
+char* readKeypad(void){
+	char *key[4][4] = {
+			{"1", "2", "3", "A"},
+			{"4", "5", "6", "B"},
+			{"7", "8", "9", "C"},
+			{"*", "0", "#", "D"}
 	};
 
-	return keyMatrix[row][column];
+	for(int i = 0; i < 4; i++){
+
+		for(int k = 0; k < 4; k++){
+			if(k == i){
+				HAL_GPIO_WritePin(ROW_PORT, row[k], GPIO_PIN_SET);
+			}else{
+				HAL_GPIO_WritePin(ROW_PORT, row[k], GPIO_PIN_RESET);
+			}
+		}
+
+		for(int j = 0; j < 4; j++){
+
+			if(HAL_GPIO_ReadPin(COLUMN_PORT, column[j])){
+				return key[i][j];
+			}
+		}
+	}
+
+	return "Z";
 }
+
