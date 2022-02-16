@@ -3,6 +3,7 @@
 ***Autores:*** *[Rodrigo Hiury](https://www.github.com/rodrigohiury), [Igor Maia Sales](https://github.com/IgorMaiaSales), [Ludwig Bezerra Sales](https://github.com/Ludwigbsales), Juan Porto*
 
 Projeto para da matéria de Sistemas Microprocessados em 2021.2 da Universidade Federal do Ceará.
+> [Vídeo de apresentação no Youtube]()
 
 ## Descrição
 
@@ -42,13 +43,14 @@ O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada 
 
 - Rodrigo Hiury
 
-> *"O Visor escolhi foi um visor LCD de 16 colunas por 4 linhas. Escolhi esse visor por conta do maior espaço disponível para informações ao usuário.
-> Para usá-lo no sistema, foi nescessário a construção de funções para enviar comandos ao visor e mostrar as informações nescessárias.
-> Para usar o visor, é nescessário primeiro, iniciá-lo. A inicialização do visor consiste em configurar o modo com que as informações serão enviadas e escritas no visor.
+> *"O Visor que escolhi foi um visor LCD de 16 colunas por 4 linhas. Escolhi esse visor por conta do maior espaço disponível para informações ao usuário.
+> Para usá-lo no sistema, foi necessário a construção de funções para enviar comandos ao visor e mostrar as informações necessárias.
+> Antes, é preciso iniciá-lo. Tive algumas dificuldades com a inicialização do LCD. Pois não há informações muito detalhadas sobre, nem é descrito pelo datasheet do LCD nem na lista de comandos como se faz a inicialização. Após algumas horas de pesquisa, tentativa e erro, consegui chegar a inicialização correta do LCD. A inicialização do visor consiste em configurar o modo com que as informações serão enviadas e escritas no visor.
 > Primeiro configuramos o tamanho da letra no visor, depois configuramos o cursor, depois o modo de escrita da tela, depois limpamos a tela e setamos o cursor pra posição (0,0).
-> No nosso caso, foi usado a configuração de 2 linhas, matriz 5x8. O cursor foi desligado e o modo de escrita foi usado da esquerda pra direita, sem deslocamento.
+> No nosso caso, foi usado a configuração de 2 linhas, matriz 5x8. O cursor foi ocultado e o modo de escrita foi usado da esquerda pra direita, sem deslocamento.
 > Após a inicialização, pude usar o visor normalmente.
-> Para escrever no visor, temos que primeiro setar a posição do cursos, isto é, a posição que a letra ou o número mais a esquerda será escrito, e então enviar o dado a ser escrito."*
+> Para escrever no visor, temos que primeiro setar a posição do cursor, isto é, a posição que a letra ou o número mais a esquerda será escrito, e então enviar o dado a ser escritos de 8 em 8 bits ou de 4 em 4 bits. Foi escolhido para o projeto de 8 em 8 bits.
+> Para o controlar o LCD, é relativamente simples. A Lista de comandos que o LM041L aceita está listado [neste site](https://mil.ufl.edu/3744/docs/lcdmanual/commands.html#Wr). Assim, é possível mandar comandos de enviar caracteres para o visor, limpá-lo ou mudar a posição do cursor como desejado. As funções de controle do LCD estão documentadas dentro do projeto."*
 
 ### Teclado Matricial
 
