@@ -36,22 +36,22 @@ O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada 
 
 - Juan Porto
 
-> [incluir texto sobre o sensor de temperatura]
+> *"[incluir texto sobre o sensor de temperatura]"*
 
 ### Visor LCD
 
 - Rodrigo Hiury
 
-> O Visor escolhi foi um visor LCD de 16 colunas por 4 linhas. Escolhi esse visor por conta do maior espaço disponível para informações ao usuário.
+> *"O Visor escolhi foi um visor LCD de 16 colunas por 4 linhas. Escolhi esse visor por conta do maior espaço disponível para informações ao usuário.
 > Para usá-lo no sistema, foi nescessário a construção de funções para enviar comandos ao visor e mostrar as informações nescessárias.
 > Para usar o visor, é nescessário primeiro, iniciá-lo. A inicialização do visor consiste em configurar o modo com que as informações serão enviadas e escritas no visor.
 > Primeiro configuramos o tamanho da letra no visor, depois configuramos o cursor, depois o modo de escrita da tela, depois limpamos a tela e setamos o cursor pra posição (0,0).
 > No nosso caso, foi usado a configuração de 2 linhas, matriz 5x8. O cursor foi desligado e o modo de escrita foi usado da esquerda pra direita, sem deslocamento.
 > Após a inicialização, pude usar o visor normalmente.
-> Para escrever no visor, temos que primeiro setar a posição do cursos, isto é, a posição que a letra ou o número mais a esquerda será escrito, e então enviar o dado a ser escrito.
+> Para escrever no visor, temos que primeiro setar a posição do cursos, isto é, a posição que a letra ou o número mais a esquerda será escrito, e então enviar o dado a ser escrito."*
 
 ### Teclado Matricial
 
 - Igor Maia Sales
 
-> [Inserir texto sobre o teclado matricial]
+> *"[Inserir texto sobre o teclado matricial]"*
