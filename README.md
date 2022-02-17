@@ -66,3 +66,11 @@ Após a conclusão das partes de todos, conseguimos construir nosso programa. Co
 ### Funcionamento
 
 O Nosso sistema funciona da seguinte forma: O sensor de pressão é conectado ao fundo do reservatório juntamente com o sensor de temperatura. O sensor é conectado ao microcontrolador. Então conectamos o microcontrolador a uma bomba de sucção. Isso pode ser feito por meio de uma contatora simples. Após tudo conectado e ligado, iniciamos o sistema. O sistema irá calcular automaticamente o nível da água do reservatório baseado na pressão e temperatura da água no fundo, considerando um reservatório de 2 mt de altura.
+
+### Dificuldades
+
+Bem, como já foi descrito acima, enfrentamos alguns percalços na contrução do projeto. Primeiro o LCD, depois o sensor de pressão, por ultimo o teclado matricial. Tentamos incluir o teclado no nosso projeto, mas houveram muitas falhas que impossibilitaram a inclusão do teclado. Primeiro, somente 1 das portas ativavam, depois conseguimos ativar todas, mas o teclado não lida os botões apropriadamente. Depois, conseguimos fazer que lêsse os botões, mas só alguns, e depois de um tempo, os pinos que mandavam os sinais pras linhas do teclado paravam de alternar, e destravava se apertássemos o botão de dividir do SMALLCALC. Então desistimos de usar o SMALLCALC do Proteus e usamos Switches simples. Quase conseguimos concluir a construção do teclado, como pode ser visto nesse [segundo repositório](https://github.com/IgorMaiaSales/ControleDeReservatorioDeLiquido), mas o proteus começou a apresentar uma lentidão excessiva quando pressionado um botão, o que tornou inviável a inclusão deste no projeto.
+
+### Conclusão
+
+Apesar de todas as dificuldades, a contrução do sistema foi algo muito interessante e produtivo. Mexer nas funções do STM32, construir um dispositivo próprio, quebrar a cabeça com os problemas que apareciam tornaram o processo muito interessante. E, por isso, nos orgulhamos do que nós contruímos. Esperamos que você possa gostar do que fizemos, e qualquer dúvida ou sugestão, estamos a disposição.
