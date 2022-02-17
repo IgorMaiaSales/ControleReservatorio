@@ -29,9 +29,9 @@ O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada 
 
 - Ludwig Bezerra Sales
 
-> *"Bom, fiquei responsável pela ligação e funcionamento do sensor de pressão utilizado, que foi o MPX4115, li o datasheet, vi como ligar os pinos e o fiz, porém, ao utilizar a > fórmula de saída do valor da pressão que o datasheet disponibiliza, apresentou uma divergência enorme em relação ao valor do visor do sensor, daí tiramos um tempo e o Rodrigo > veio com a solução, ele havia utilizado um site para elaborar um polinômio que corrigisse o valor da pressão apresentada.
-> Após a correção da pressão, nos vimos diante de outro problema, a utilização do controlador ADC1 com dois sensores analógicos, Rodrigo novamente veio com a solução, ele havia > pesquisado e encontrado uma forma de utilizar os dois sensores no mesmo controlador, diferenciando canais e possibilitando a leitura de ambos (temperatura e pressão).
-> Dito isso, as linhas de código utilizadas para o correto funcionamento do sensor são basicamente: definir duas variáveis (o valor lido pelo controlador ADC e a pressão, depois > da conversão), inicialização do controlador ADC, dar um delay para a leitura do valor, obter o valor “cru” (por isso o nome da variável: raw), o converter e por fim imprimir no visor."*
+> *"Bom, fiquei responsável pela ligação e funcionamento do sensor de pressão utilizado, que foi o MPX4115, li o datasheet, vi como ligar os pinos e o fiz, porém, ao utilizar a fórmula de saída do valor da pressão que o datasheet disponibiliza, apresentou uma divergência enorme em relação ao valor do visor do sensor, daí tiramos um tempo e o Rodrigo veio com a solução, ele havia utilizado um site para elaborar um polinômio que corrigisse o valor da pressão apresentada.
+> Após a correção da pressão, nos vimos diante de outro problema, a utilização do controlador ADC1 com dois sensores analógicos, Rodrigo novamente veio com a solução, ele havia pesquisado e encontrado uma forma de utilizar os dois sensores no mesmo controlador, diferenciando canais e possibilitando a leitura de ambos (temperatura e pressão).
+> Dito isso, as linhas de código utilizadas para o correto funcionamento do sensor são basicamente: definir duas variáveis (o valor lido pelo controlador ADC e a pressão, depois da conversão), inicialização do controlador ADC, dar um delay para a leitura do valor, obter o valor “cru” (por isso o nome da variável: raw), o converter e por fim imprimir no visor."*
 
 ### Sensor de Temperatura
 
