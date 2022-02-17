@@ -1,6 +1,6 @@
 # Controle de Reservatorio de Água
 
-***Autores:*** *[Rodrigo Hiury](https://www.github.com/rodrigohiury), [Igor Maia Sales](https://github.com/IgorMaiaSales), [Ludwig Bezerra Sales](https://github.com/Ludwigbsales), Juan Porto*
+***Autores:*** *[Rodrigo Hiury](https://www.github.com/rodrigohiury), [Igor Maia Sales](https://github.com/IgorMaiaSales), [Ludwig Bezerra Sales](https://github.com/Ludwigbsales), [Juan Porto](https://github.com/juannporto)*
 
 Projeto para da matéria de Sistemas Microprocessados em 2021.2 da Universidade Federal do Ceará.
 > [Vídeo de apresentação no Youtube]()
