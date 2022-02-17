@@ -1,15 +1,25 @@
 /*
  * keypad.h
  *
- *  Created on: Feb 13, 2022
+ *  Created on: Feb 16, 2022
  *      Author: IgorMaia
  */
 
 #ifndef INC_KEYPAD_H_
 #define INC_KEYPAD_H_
+#include "stm32f1xx_hal.h"
 
-void setRow(int row);
-int readColumn(int column);
-int readKey(int row, int column);
+#define ROW_PORT GPIOB
+#define ROW1 GPIO_PIN_0
+#define ROW2 GPIO_PIN_1
+#define ROW3 GPIO_PIN_2
+#define ROW4 GPIO_PIN_3
+#define COLUMN_PORT GPIOA
+#define COLUMN1 GPIO_PIN_12
+#define COLUMN2 GPIO_PIN_13
+#define COLUMN3 GPIO_PIN_14
+#define COLUMN4 GPIO_PIN_15
+
+char* readKeypad(void);
 
 #endif /* INC_KEYPAD_H_ */

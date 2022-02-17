@@ -1,6 +1,6 @@
 # Controle de Reservatorio de Água
 
-***Autores:*** *[Rodrigo Hiury](https://www.github.com/rodrigohiury), [Igor Maia Sales](https://github.com/IgorMaiaSales), [Ludwig Bezerra Sales](https://github.com/Ludwigbsales), Juan Porto*
+***Autores:*** *[Rodrigo Hiury](https://www.github.com/rodrigohiury), [Igor Maia Sales](https://github.com/IgorMaiaSales), [Ludwig Bezerra Sales](https://github.com/Ludwigbsales), [Juan Porto](https://github.com/juannporto)*
 
 Projeto para da matéria de Sistemas Microprocessados em 2021.2 da Universidade Federal do Ceará.
 > [Vídeo de apresentação no Youtube]()
@@ -19,7 +19,7 @@ Para as peças utilizadas no sistema, além do microcontrolador escolhido, foram
 > - [Sensor de Pressão MPX4115A](https://www.nxp.com/docs/en/data-sheet/MPX4115.pdf)
 > - [Sensor de Temperatura LM35](https://www.ti.com/lit/ds/symlink/lm35.pdf)
 > - [Visor LCD LM041L 16x4](https://datasheetspdf.com/pdf-file/573111/HitachiSemiconductor/LM041L/1)
-> - Teclado Matricial 4x4
+> - 16 botões simples (Substituindo teclado matricial)
 
 O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada peça descrita acima foi feita individualmente. Após a implementação feita, juntamos cada parte e montamos conjuntamente o sistema.
 
@@ -37,7 +37,7 @@ O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada 
 
 - Juan Porto
 
-> *"[incluir texto sobre o sensor de temperatura]"*
+> *"Foi escolhido o sensor LM35, que é um sensor de temperatura que apresenta uma tensão linear proporcional a temperatura medida, devido ao fato do sensor não precisar ser calibrado, não houve grandes dificuldades em sua leitura, só foi necessário traduzir de binario para decimal. A ligação foi feita ligando o pino 1 ao Vcc, pino 3 ao GND e o pino 2 ao microcontrolador, também não houve dificuldades na montagem devido a simplicidade do sensor."*
 
 ### Visor LCD
 
@@ -57,3 +57,12 @@ O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada 
 - Igor Maia Sales
 
 > *"[Inserir texto sobre o teclado matricial]"*
+
+### Montagem do Projeto
+
+[Inserir texto sobre a montagem do projeto]
+
+
+### Funcionamento
+
+O Nosso sistema funciona da seguinte forma: O sensor de pressão é conectado ao fundo do reservatório juntamente com o sensor de temperatura. O sensor é conectado ao microcontrolador juntamente com o teclado. Então conectamos o microcontrolador a uma bomba de sucção. Isso pode ser feito por meio de uma contatora simples. Após tudo conectado e ligado, iniciamos o sistema. Quando o sistema iniciar, será solicitado a altura do reservatório a ser automatizado. Inserimos a altura em metros no teclado e confirmamos. Esta é a única configuração inicial requerida. Após a inserção da altura máxima do reservatório, o sistema irá calcular automaticamente o nível da água do reservatório baseado na pressão e temperatura da água no fundo. Se o nível da água cair abaixo de 95%, o microcontrolador envia um sinal elétrico para ligar a bomba de sucção para encher o  reservatório.
