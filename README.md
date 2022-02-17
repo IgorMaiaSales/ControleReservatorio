@@ -8,7 +8,7 @@ Projeto para da matéria de Sistemas Microprocessados em 2021.2 da Universidade 
 ## Descrição
 
 Este é um projeto para um sistema de controle de reservatório de água. Nosso sistema controla o nivel do reservatório baseada na pressão e temperatura da água, calculando automaticamente o nível atualmente ocupado no reservatório e ligando e desligando uma bomba para enchê-lo.
-Nosso sistema foi projetado para reservatórios de água, mas podem ser usado outros líquidos e até mesmo gases, com pequenas modificações no código-fonte.
+Nosso sistema foi projetado para reservatórios de água, mas podem ser usado outros líquidos e até mesmo gases, com algumas modificações no código-fonte.
 O sistema foi feito para reservatórios de pequeno a médio porte. Podendo ser utilizada em desde caixas d'água residenciais a reservatórios industriais de médio porte.
 O sistema foi projetado usando o Microcontrolador **STM32F103C6**, da empresa ST_Link. O código-fonte foi construído em linguagem **C** no programa **STM32CubeIDE**, e o sistema, simulado usando o **Proteus 8.11 SP0 (Build 30052)**.
 
