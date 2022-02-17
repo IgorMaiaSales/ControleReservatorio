@@ -56,7 +56,7 @@ O Projeto foi feito em conjunto com os 4 membros, mas a implementação de cada 
 
 - Igor Maia Sales
 
-> *"[Inserir texto sobre o teclado matricial]"*
+> *"Fiquei responsável pela implementação do teclado matricial. Inicialmente ele seria utilizado para receber do usuário a altura da caixa d'água, para que assim pudéssemos deixar o projeto mais personalizável. Além disso, uma das funções inicialmente pensadas seria a de receber a densidade do líquido diretamente do usuário, para utilizações em sistemas com temperatura controlada e com líquidos diferentes de água. Dessa forma, o sensor também poderia ser utilizado na indústria. A implementação do teclado é simples: é feita uma varredura no teclado matricial. O código foi feito, mas funcionou de maneira inesperada no dispositivo KEYPAD_SMALLCALC, já incluso na biblioteca do Proteus. Depois de muito tentarmos resolver esse problema, decidimos montar um teclado matricial com botões. Essa estratégia funcionou, mas tivemos um grande problema no tempo de funcionamento da simulação. Após todos esses problemas, decidimos colocar a altura da caixa d'água diretamente no código, limitando a utilização do projeto para caixas d'água com o sensor embutido."*
 
 ### Montagem do Projeto
 
